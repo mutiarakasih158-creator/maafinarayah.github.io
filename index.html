@@ -1,0 +1,182 @@
+<!DOCTYPE html><html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abiyyu Saputra</title><style>
+body{
+  margin:0;
+  background: linear-gradient(#ffd6e7,#fff);
+  font-family: Arial, sans-serif;
+  text-align:center;
+  overflow:hidden;
+}
+
+#surat{
+  margin-top:80px;
+  padding:20px;
+  font-size:18px;
+}
+
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff6b9d;
+  color:white;
+  font-size:16px;
+  margin-top:15px;
+}
+
+#isi{
+  display:none;
+  padding:20px;
+}
+
+.foto{
+  width:260px;
+  border-radius:20px;
+  margin-top:20px;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
+  cursor:grab;
+  position:relative;
+}
+
+.bunga{
+  position:absolute;
+  animation:jatuh 6s linear infinite;
+}
+
+@keyframes jatuh{
+  from{transform:translateY(-100px);} 
+  to{transform:translateY(100vh);} 
+}
+
+/* peluk virtual */
+.peluk{
+  font-size:65px;
+  margin-top:15px;
+  animation:pelukReal 1.2s infinite;
+}
+
+@keyframes pelukReal{
+  0%{transform:scale(1);} 
+  50%{transform:scale(1.25);} 
+  100%{transform:scale(1);} 
+}
+
+/* hati keluar dari peluk */
+.hati{
+  position:absolute;
+  font-size:18px;
+  animation:hatiNaik 2.5s linear forwards;
+}
+
+@keyframes hatiNaik{
+  from{transform:translateY(0) scale(1); opacity:1;}
+  to{transform:translateY(-120px) scale(1.4); opacity:0;}
+}
+
+</style></head><body><div id="surat">
+<h2>Untuk Abiyyu Saputra🐝</h2>
+<p>
+Ayangg araa minta maaf🙁..ara tidak bermaksud membuat Abi marah atau kecewa..tapii ara bakal nunggu abi kokk.
+Kalau memang Ara salah😞😞 tolong bilang ya supaya Ara bisa perbaiki..gamau di diamin ayang..apa lagi di dry text..
+Ara kangen suaraa abi..kabarnya abi kangen cowoku..semuanyaaa🥺💗
+
+my honeyy🐝..
+my husband💕..
+sayangku🥺..
+cintakuu💖💖..
+cowo kesayanganku😙..
+duniaa akuu🌎
+</p><button onclick="mulai()">Klik kalau masih sayang Ara</button>
+
+</div><div id="isi">
+<h2 id="for abiyyu saputra"></h2><p>
+Terima kasih sudah mau baca ini sayang.
+araa belajar buat ini..agar ayang ga marah lagi
+</p><div class="peluk" id="peluk">🫂</div><img src="foto_abira.png" 
+class="foto" id="foto">
+
+<br><br> <button onclick="maafin()">Klik 3x sayang💗💗</button>
+
+<h3 id="akhir"></h3>
+</div><audio id="musik" loop>
+<source src="onecallaway.mp3" type="audio/mpeg">
+</audio><script>
+let klik=0;
+
+function mulai(){
+  document.getElementById("surat").style.display="none";
+  document.getElementById("isi").style.display="block";
+  document.getElementById("musik").play();
+  tampilNama();
+  bunga();
+  pelukVirtual();
+}
+
+function tampilNama(){
+  let teks="Abiyyu Saputra";
+  let i=0;
+  let interval=setInterval(()=>{
+    document.getElementById("nama").innerHTML+=teks[i];
+    i++;
+    if(i>=teks.length) clearInterval(interval);
+  },150);
+}
+
+function bunga(){
+  setInterval(()=>{
+    let b=document.createElement("div");
+    b.innerHTML="🌸";
+    b.className="bunga";
+    b.style.left=Math.random()*100+"vw";
+    b.style.fontSize=(15+Math.random()*20)+"px";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),6000);
+  },400);
+}
+
+/* efek hati keluar dari peluk */
+function pelukVirtual(){
+  setInterval(()=>{
+    let peluk=document.getElementById("peluk");
+    let rect=peluk.getBoundingClientRect();
+
+    let h=document.createElement("div");
+    h.innerHTML="💗";
+    h.className="hati";
+    h.style.left=(rect.left + rect.width/2)+"px";
+    h.style.top=(rect.top)+"px";
+
+    document.body.appendChild(h);
+
+    setTimeout(()=>h.remove(),2500);
+  },500);
+}
+
+function maafin(){
+  klik++;
+  if(klik>=3){
+    document.getElementById("akhir").innerHTML=
+    "Yeayyy kalau abii udahh pencet ini..berarti abii udahh ga marah lagi💗💗..sayang abi banyakk-banyak..hikss hiksss jangan marah lagi ya sayang😭😭❤";
+  }
+}
+
+// DRAG FOTO DI HP
+let foto=document.getElementById("foto");
+let offsetX, offsetY;
+
+foto.addEventListener("touchstart", function(e){
+  offsetX=e.touches[0].clientX - foto.offsetLeft;
+  offsetY=e.touches[0].clientY - foto.offsetTop;
+});
+
+foto.addEventListener("touchmove", function(e){
+  foto.style.position="absolute";
+  foto.style.left=(e.touches[0].clientX-offsetX)+"px";
+  foto.style.top=(e.touches[0].clientY-offsetY)+"px";
+});
+
+</script></body>
+</html>
